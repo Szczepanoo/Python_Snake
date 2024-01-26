@@ -29,24 +29,24 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-            if 400 <= x <= 600 and 50 <= y <= 100:
+            if 400 <= x <= 600 and 200 <= y <= 250:
                 SP.play_game()
-            elif 400 <= x <= 600 and 120 <= y <= 170:
+            elif 400 <= x <= 600 and 270 <= y <= 320:
                 MP.play_game()
-            elif 400 <= x <= 600 and 190 <= y <= 240:
+            elif 400 <= x <= 600 and 340 <= y <= 410:
                 AI.play_game()
 
     screen.fill(black)
 
     # Rysowanie przycisków
-    pygame.draw.rect(screen, green, (400, 50, 200, 50))
-    draw_text("Singleplayer", width // 2, 75, black)
+    pygame.draw.rect(screen, green, (400, 200, 200, 50))
+    draw_text("Singleplayer", width // 2, 225, black)
 
-    pygame.draw.rect(screen, green, (400, 120, 200, 50))
-    draw_text("Multiplayer", width // 2, 145, black)
+    pygame.draw.rect(screen, green, (400, 270, 200, 50))
+    draw_text("Multiplayer", width // 2, 295, black)
 
-    pygame.draw.rect(screen, green, (400, 190, 200, 50))
-    draw_text("Snake-AI", width // 2, 215, black)
+    pygame.draw.rect(screen, green, (400, 340, 200, 50))
+    draw_text("Snake-AI", width // 2, 365, black)
 
     pygame.display.flip()
 
