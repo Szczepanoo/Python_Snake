@@ -189,7 +189,7 @@ def play_game():
                 length_of_blue_snake += 1
 
             if game_over_green and game_over_blue:
-                game_over = True
+                menu.end_game('multi')
 
             clock.tick(fps)
             pygame.display.update()

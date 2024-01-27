@@ -95,7 +95,7 @@ def play_game():
             clock.tick(fps)
             pygame.display.update()
 
-        menu.show_main_menu()
+        menu.end_game('single')
         pygame.quit()
         quit()
 
