@@ -46,13 +46,16 @@ def play_game():
                     if first_move:
                         if event.key == pygame.K_UP:
                             x_change, y_change = 0, -block_size
+                            first_move = False
                         elif event.key == pygame.K_DOWN:
                             x_change, y_change = 0, block_size
+                            first_move = False
                         elif event.key == pygame.K_LEFT:
                             x_change, y_change = -block_size, 0
+                            first_move = False
                         elif event.key == pygame.K_RIGHT:
                             x_change, y_change = block_size, 0
-                        first_move = False
+                            first_move = False
                     else:
                         if event.key == pygame.K_UP and (x_change != 0 and y_change != -block_size):
                             x_change, y_change = 0, -block_size
