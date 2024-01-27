@@ -1,5 +1,6 @@
 import pygame
 import random
+import menu
 
 def play_game():
 
@@ -94,6 +95,7 @@ def play_game():
             clock.tick(fps)
             pygame.display.update()
 
+        menu.show_main_menu()
         pygame.quit()
         quit()
 
