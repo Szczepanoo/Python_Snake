@@ -4,7 +4,9 @@ import single_player as SP
 import multi_player as MP
 import AI_snake as AI
 
+
 def show_main_menu():
+
     pygame.init()
 
     width, height = 1000, 800
@@ -60,7 +62,9 @@ def show_main_menu():
     pygame.quit()
     sys.exit()
 
-def end_game(mode : str, green_points, blue_points):
+
+def end_game(mode: str, green_points, blue_points):
+
     pygame.init()
 
     width, height = 1000, 800
