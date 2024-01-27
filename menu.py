@@ -35,6 +35,9 @@ def show_main_menu():
                     MP.play_game()
                 elif 400 <= x <= 600 and 340 <= y <= 410:
                     AI.play_game()
+                elif 400 <= x <= 600 and 540 <= y <= 610:
+                    pygame.quit()
+                    sys.exit()
 
         screen.fill(black)
 
@@ -48,13 +51,16 @@ def show_main_menu():
         pygame.draw.rect(screen, green, (400, 340, 200, 50))
         draw_text("AI-Snake", width // 2, 365, black)
 
+        pygame.draw.rect(screen, green, (400, 540, 200, 50))
+        draw_text("Exit", width // 2, 565, black)
+
         pygame.display.flip()
 
     # Zakończenie programu
     pygame.quit()
     sys.exit()
 
-def end_game(mode : str):
+def end_game(mode : str, green_points, blue_points):
     pygame.init()
 
     width, height = 1000, 800
@@ -64,7 +70,6 @@ def end_game(mode : str):
     black = (0, 0, 0)
     green = (0, 255, 0)
     blue = (50, 153, 213)
-    red = (230, 20, 20)
 
     font = pygame.font.Font(None, 36)
 
@@ -106,10 +111,10 @@ def end_game(mode : str):
 
         draw_text("GAME OVER", width // 2, 100, green)
         if mode == 'multi':
-            draw_text("BLUE SNAKE POINTS: []", width // 4, 200, blue)
-            draw_text("GREEN SNAKE POINTS: []", (width // 4) * 3, 200, green)
+            draw_text(f"BLUE SNAKE POINTS: {blue_points}", width // 4, 200, blue)
+            draw_text(f"GREEN SNAKE POINTS: {green_points}", (width // 4) * 3, 200, green)
         elif mode == 'single':
-            draw_text("POINTS: []", width // 2, 200, green)
+            draw_text(f"POINTS: {green_points}", width // 2, 200, green)
 
         pygame.display.flip()
 
