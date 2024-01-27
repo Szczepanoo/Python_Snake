@@ -53,3 +53,12 @@ while running:
 # Zakończenie programu
 pygame.quit()
 sys.exit()
+
+'''
+[IDEAS]
+ - ekran końcowy z ilością punktów
+ - możliwośc gry drugiego gracza po śmierci pierwszego
+ - możliwośc zagrania ponownie po skończeniu gry
+ - możliwośc zapauzowania i wznowienia gry
+'''
+    
