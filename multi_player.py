@@ -2,6 +2,7 @@ import pygame
 import random
 import menu
 import os
+
 def play_game(size):
 
     pygame.init()
