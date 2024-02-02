@@ -18,7 +18,6 @@ def show_main_menu():
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme,loops = -1)
 
-
     black = (0, 0, 0)
     green = (0, 255, 0)
 

@@ -27,6 +27,17 @@ def play_game():
 
     clock = pygame.time.Clock()
 
+    def display_points(b_points,g_points):
+        font = pygame.font.Font(None, 36)
+        blue_text_surface = font.render(f"Points: {b_points}", True, blue)
+        green_text_surface = font.render(f"Points: {g_points}",True,green)
+        blue_text_rect = blue_text_surface.get_rect(topleft=(10,10))
+        screen.blit(blue_text_surface, blue_text_rect)
+        green_text_rect = green_text_surface.get_rect(topright=(width-10, 10))
+        screen.blit(green_text_surface, green_text_rect)
+
+
+
     def generate_food_position(snake_list1, snake_list2, food_x1 = 0.0, food_y1 = 0.0):
         while True:
             food_x = round(random.randrange(0, width - block_size) / 20.0) * 20.0
@@ -149,7 +160,6 @@ def play_game():
             draw_snake(green_snake_list, green)
             draw_snake(blue_snake_list, blue)
 
-            pygame.display.update()
 
             # Uderzenie zielonego w samego siebie
             for segment in green_snake_list[:-1]:
@@ -175,15 +185,21 @@ def play_game():
                     x_blue_change, y_blue_change = 0, 0
                     game_over_blue = True
 
+            display_points(length_of_blue_snake - 1, length_of_green_snake - 1)
+
+            pygame.display.flip()
+
             # Zielony zjada jedzenie1
             if x_green == food_x1 and y_green == food_y1:
                 food_x1, food_y1 = generate_food_position(green_snake_list, blue_snake_list, food_x2, food_y2)
                 length_of_green_snake += 1
+                channel1.play(get_point)
 
             # Zielony zjada jedzenie2
             if x_green == food_x2 and y_green == food_y2:
                 food_x2, food_y2 = generate_food_position(green_snake_list, blue_snake_list, food_x1, food_x2)
                 length_of_green_snake += 1
+                channel1.play(get_point)
 
             # Niebieski zjada jedzenie1
             if x_blue == food_x1 and y_blue == food_y1:

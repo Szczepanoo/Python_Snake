@@ -14,9 +14,11 @@ def play_game():
     black = (0, 0, 0)
     red = (230, 20, 20)
     green = (0, 255, 0)
+    white = (240,240,240)
 
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('SinglePlayer Snake Game')
+
 
     main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
@@ -25,8 +27,13 @@ def play_game():
     get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
     channel1 = pygame.mixer.Channel(1)
 
-
     clock = pygame.time.Clock()
+
+    def display_points(points,color):
+        font = pygame.font.Font(None, 36)
+        text_surface = font.render(f"Points: {points}", True, color)
+        text_rect = text_surface.get_rect(topleft=(10, 10))
+        screen.blit(text_surface, text_rect)
 
     def generate_food_position(snake_list):
         while True:
@@ -34,8 +41,6 @@ def play_game():
             food_y = round(random.randrange(0, height - block_size) / 20.0) * 20.0
             if [food_x, food_y] not in snake_list:
                 return food_x, food_y
-
-
     def gameLoop():
         game_over = False
         first_move = True
@@ -97,6 +102,8 @@ def play_game():
             for segment in snake_list:
                 pygame.draw.rect(screen, green, [segment[0], segment[1], block_size, block_size])
                 pygame.draw.rect(screen, black, [segment[0], segment[1], block_size, block_size], 1)
+
+            display_points(length_of_snake - 1,white)
 
             pygame.display.update()
 

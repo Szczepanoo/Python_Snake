@@ -23,6 +23,9 @@ def play_game():
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
+    get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
+    channel1 = pygame.mixer.Channel(1)
+
     clock = pygame.time.Clock()
 
     def generate_food_position(snake_list):
@@ -92,6 +95,7 @@ def play_game():
             if x == food_x and y == food_y:
                 food_x, food_y = generate_food_position(snake_list)
                 length_of_snake += 1
+                channel1.play(get_point)
 
             # Obsługa ominięcia węża
             if next_block_in_snake(x,y,x_change,y_change,snake_list):
