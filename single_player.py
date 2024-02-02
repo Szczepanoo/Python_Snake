@@ -27,8 +27,34 @@ def play_game(size):
 
     clock = pygame.time.Clock()
 
-    def game_paused():
-        pass
+    def pause_game(current_direction):
+        paused = True
+        pause_font = pygame.font.Font(None, 72)
+        toggle_text = True
+
+        while paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        paused = False
+
+            clock.tick(5)
+            pause_text = pause_font.render("GAME PAUSED", True, black)
+            screen.blit(pause_text,
+                        (width // 2 - pause_text.get_width() // 2, height // 2 - pause_text.get_height() // 2))
+
+            if toggle_text:
+                pause_text = pause_font.render("GAME PAUSED", True, green)
+                screen.blit(pause_text,
+                            (width // 2 - pause_text.get_width() // 2, height // 2 - pause_text.get_height() // 2))
+
+            toggle_text = not toggle_text
+
+            pygame.display.update()
+
+        return paused, current_direction
 
     def display_points(points,color):
         font = pygame.font.Font(None, 36)
@@ -60,33 +86,36 @@ def play_game(size):
                 if event.type == pygame.QUIT:
                     game_over = True
                 elif event.type == pygame.KEYDOWN:
-                    if first_move:
-                        if event.key == pygame.K_UP:
-                            x_change, y_change = 0, -block_size
-                            first_move = False
-                        elif event.key == pygame.K_DOWN:
-                            x_change, y_change = 0, block_size
-                            first_move = False
-                        elif event.key == pygame.K_LEFT:
-                            x_change, y_change = -block_size, 0
-                            first_move = False
-                        elif event.key == pygame.K_RIGHT:
-                            x_change, y_change = block_size, 0
-                            first_move = False
-                    else:
-                        if event.key == pygame.K_UP and (x_change != 0 and y_change != -block_size):
-                            x_change, y_change = 0, -block_size
-                        elif event.key == pygame.K_DOWN and (x_change != 0 and y_change != block_size):
-                            x_change, y_change = 0, block_size
-                        elif event.key == pygame.K_LEFT and (x_change != -block_size and y_change != 0):
-                            x_change, y_change = -block_size, 0
-                        elif event.key == pygame.K_RIGHT and (x_change != block_size and y_change != 0):
-                            x_change, y_change = block_size, 0
+                    if event.key == pygame.K_ESCAPE:
+                        game_paused, last_direction = pause_game((x_change, y_change))
 
-            x += x_change
-            y += y_change
+                    if not game_paused:
+                        if first_move:
+                            if event.key == pygame.K_UP:
+                                x_change, y_change = 0, -block_size
+                                first_move = False
+                            elif event.key == pygame.K_DOWN:
+                                x_change, y_change = 0, block_size
+                                first_move = False
+                            elif event.key == pygame.K_LEFT:
+                                x_change, y_change = -block_size, 0
+                                first_move = False
+                            elif event.key == pygame.K_RIGHT:
+                                x_change, y_change = block_size, 0
+                                first_move = False
+                        else:
+                            if event.key == pygame.K_UP and (x_change != 0 and y_change != -block_size):
+                                x_change, y_change = 0, -block_size
+                            elif event.key == pygame.K_DOWN and (x_change != 0 and y_change != block_size):
+                                x_change, y_change = 0, block_size
+                            elif event.key == pygame.K_LEFT and (x_change != -block_size and y_change != 0):
+                                x_change, y_change = -block_size, 0
+                            elif event.key == pygame.K_RIGHT and (x_change != block_size and y_change != 0):
+                                x_change, y_change = block_size, 0
 
-
+            if not game_paused:
+                x += x_change
+                y += y_change
 
             if x >= width or x < 0 or y >= height or y < 0:
                 game_over = True

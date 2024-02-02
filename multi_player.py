@@ -36,6 +36,35 @@ def play_game(size):
         green_text_rect = green_text_surface.get_rect(topright=(width-10, 10))
         screen.blit(green_text_surface, green_text_rect)
 
+    def pause_game(current_direction_green, current_direction_blue):
+        paused = True
+        pause_font = pygame.font.Font(None, 72)
+        toggle_text = True
+
+        while paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        paused = False
+
+            clock.tick(5)
+            pause_text = pause_font.render("GAME PAUSED", True, black)
+            screen.blit(pause_text,
+                        (width // 2 - pause_text.get_width() // 2, height // 2 - pause_text.get_height() // 2))
+
+            if toggle_text:
+                pause_text = pause_font.render("GAME PAUSED", True, green)
+                screen.blit(pause_text,
+                            (width // 2 - pause_text.get_width() // 2, height // 2 - pause_text.get_height() // 2))
+
+            toggle_text = not toggle_text
+
+            pygame.display.update()
+
+        return paused, current_direction_green,current_direction_blue
+
 
 
     def generate_food_position(snake_list1, snake_list2, food_x1 = 0.0, food_y1 = 0.0):
@@ -52,6 +81,7 @@ def play_game(size):
 
     def gameLoop():
         game_over = False
+        game_paused = False
         game_over_green = False
         game_over_blue = False
 
@@ -77,6 +107,10 @@ def play_game(size):
                 if event.type == pygame.QUIT:
                     game_over = True
                 elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        game_paused, last_direction_green, last_direction_blue = pause_game((x_green_change, y_green_change),(x_blue_change,y_blue_change))
+
+                    if not game_paused:
                         # Pierwszy ruch zielonego
                         if event.key == pygame.K_UP and green_first_move and not game_over_green:
                             x_green_change, y_green_change = 0, -block_size
@@ -125,11 +159,12 @@ def play_game(size):
                         elif event.key == pygame.K_d and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0) and not game_over_blue:
                             x_blue_change, y_blue_change = block_size, 0
 
-            x_green += x_green_change
-            y_green += y_green_change
+            if not game_paused:
+                x_green += x_green_change
+                y_green += y_green_change
 
-            x_blue += x_blue_change
-            y_blue += y_blue_change
+                x_blue += x_blue_change
+                y_blue += y_blue_change
 
             # Sprawdzenie czy zielony nie wyjechał z planszy
             if x_green >= width or x_green < 0 or y_green >= height or y_green < 0:
