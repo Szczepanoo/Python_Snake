@@ -124,6 +124,8 @@ def end_game(mode : str, green_points, blue_points,size):
                             SP.play_game(size)
                         elif mode == "multi":
                             MP.play_game(size)
+                        elif mode == 'ai':
+                            AI.play_game(size)
                     elif height // 2 <= y <= height // 2 + button_height:
                         show_main_menu(size)
                     elif height // 2 + button_y_offset <= y <= height // 2 + button_y_offset + button_height:
@@ -150,7 +152,7 @@ def end_game(mode : str, green_points, blue_points,size):
         if mode == 'multi':
             draw_text(f"BLUE SNAKE POINTS: {blue_points}", scale_factor(250), scale_factor(200), blue)
             draw_text(f"GREEN SNAKE POINTS: {green_points}", width - scale_factor(250), scale_factor(200), green)
-        elif mode == 'single':
+        elif mode == 'single' or mode == 'ai':
             draw_text(f"POINTS: {green_points}", width // 2, scale_factor(200), green)
 
         pygame.display.flip()

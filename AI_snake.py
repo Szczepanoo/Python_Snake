@@ -145,7 +145,7 @@ def play_game(size):
             clock.tick(fps)
             pygame.display.update()
 
-        menu.end_game('single',length_of_snake - 1, 0,size)
+        menu.end_game('ai',length_of_snake - 1, 0,size)
         pygame.quit()
         quit()
 
