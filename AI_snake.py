@@ -1,6 +1,6 @@
 import pygame
 import random
-
+import os
 import menu
 
 
@@ -18,6 +18,10 @@ def play_game():
 
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('Snake-AI')
+
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    channel0 = pygame.mixer.Channel(0)
+    channel0.play(main_theme, loops=-1)
 
     clock = pygame.time.Clock()
 

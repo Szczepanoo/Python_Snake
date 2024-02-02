@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 import single_player as SP
@@ -12,6 +13,11 @@ def show_main_menu():
     width, height = 1000, 800
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("SNAKE")
+
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    channel0 = pygame.mixer.Channel(0)
+    channel0.play(main_theme,loops = -1)
+
 
     black = (0, 0, 0)
     green = (0, 255, 0)
@@ -70,6 +76,10 @@ def end_game(mode: str, green_points, blue_points):
     width, height = 1000, 800
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("SNAKE")
+
+    game_over_sound = pygame.mixer.Sound(os.getcwd() + '\\game_over.mp3')
+    channel0 = pygame.mixer.Channel(0)
+    channel0.play(game_over_sound)
 
     black = (0, 0, 0)
     green = (0, 255, 0)
