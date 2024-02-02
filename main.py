@@ -30,8 +30,8 @@ def get_screen_size(option):
     pygame.init()
     if option == "800x600":
         return (800, 600)
-    elif option == "1024x768":
-        return (1024, 768)
+    elif option == "1000x800":
+        return (1000, 800)
     elif option == "1280x720":
         return (1280, 720)
     elif option == "Fullscreen":
@@ -39,7 +39,7 @@ def get_screen_size(option):
 
 pygame.init()
 
-options = ["800x600", "1024x768", "1280x720", "Fullscreen"]
+options = ["800x600", "1000x800", "1280x720", "Fullscreen"]
 screen_size_option = None
 
 screen = pygame.display.set_mode((800, 600))
@@ -76,6 +76,8 @@ pygame.display.set_caption('SNAKE')
  [] możliwośc zapauzowania i wznowienia gry
  [] dodanie dodatkowej muzyki (po najechaniu na kafelek)
  [] dodanie ramki do tekstu z punktami
+ [] dodanie możliwości zalogowania
+ [] dodanie wyboru customowej rozdzielczości
 [ZREALIZOWANO]
  [X] możliwość wyboru wielkości ekranu
  [X] spowolnienie i zmiana prędkości wraz ze wzrostem punktów

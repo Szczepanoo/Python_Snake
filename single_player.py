@@ -27,6 +27,9 @@ def play_game(size):
 
     clock = pygame.time.Clock()
 
+    def game_paused():
+        pass
+
     def display_points(points,color):
         font = pygame.font.Font(None, 36)
         text_surface = font.render(f"Points: {points}", True, color)
@@ -42,6 +45,7 @@ def play_game(size):
     def gameLoop():
         fps = 12
         game_over = False
+        game_paused = False
         first_move = True
         x, y = width / 2, height / 2
         x_change, y_change = 0, 0
@@ -81,6 +85,8 @@ def play_game(size):
 
             x += x_change
             y += y_change
+
+
 
             if x >= width or x < 0 or y >= height or y < 0:
                 game_over = True
