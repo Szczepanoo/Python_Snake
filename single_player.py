@@ -9,12 +9,10 @@ def play_game():
 
     width, height = 1000, 800
     block_size = 20
-    fps = 15
 
     black = (0, 0, 0)
     red = (230, 20, 20)
     green = (0, 255, 0)
-    white = (240,240,240)
 
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('SinglePlayer Snake Game')
@@ -42,6 +40,7 @@ def play_game():
             if [food_x, food_y] not in snake_list:
                 return food_x, food_y
     def gameLoop():
+        fps = 12
         game_over = False
         first_move = True
         x, y = width / 2, height / 2
@@ -103,7 +102,7 @@ def play_game():
                 pygame.draw.rect(screen, green, [segment[0], segment[1], block_size, block_size])
                 pygame.draw.rect(screen, black, [segment[0], segment[1], block_size, block_size], 1)
 
-            display_points(length_of_snake - 1,white)
+            display_points(length_of_snake - 1,green)
 
             pygame.display.update()
 
@@ -111,6 +110,8 @@ def play_game():
                 food_x, food_y = generate_food_position(snake_list)
                 length_of_snake += 1
                 channel1.play(get_point)
+                if fps < 20:
+                    fps += 2
 
             clock.tick(fps)
             pygame.display.update()
