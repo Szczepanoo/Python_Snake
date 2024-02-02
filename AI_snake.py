@@ -4,11 +4,11 @@ import os
 import menu
 
 
-def play_game():
+def play_game(size):
 
     pygame.init()
 
-    width, height = 1000, 800
+    width, height = size[0], size[1]
     block_size = 20
     fps = 15
 
@@ -145,7 +145,7 @@ def play_game():
             clock.tick(fps)
             pygame.display.update()
 
-        menu.end_game('single',length_of_snake - 1, 0)
+        menu.end_game('single',length_of_snake - 1, 0,size)
         pygame.quit()
         quit()
 

@@ -2,11 +2,11 @@ import pygame
 import random
 import menu
 import os
-def play_game():
+def play_game(size):
 
     pygame.init()
 
-    width, height = 1000, 800
+    width, height = size[0], size[1]
     block_size = 20
     fps = 15
 
@@ -214,12 +214,12 @@ def play_game():
                 channel1.play(get_point)
 
             if game_over_green and game_over_blue:
-                menu.end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1)
+                menu.end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1,size)
 
             clock.tick(fps)
             pygame.display.update()
 
-        menu.show_main_menu()
+        menu.show_main_menu(size)
         pygame.quit()
         quit()
 
