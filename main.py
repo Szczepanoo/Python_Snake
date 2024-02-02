@@ -73,12 +73,12 @@ pygame.display.set_caption('SNAKE')
 
 '''
 [IDEAS]
- [] możliwośc zapauzowania i wznowienia gry
  [] dodanie dodatkowej muzyki (po najechaniu na kafelek)
- [] dodanie ramki do tekstu z punktami
+ [] dodanie ramki do tekstu z punktami oraz tekstu 'game paused'
  [] dodanie możliwości zalogowania
  [] dodanie wyboru customowej rozdzielczości
 [ZREALIZOWANO]
+ [X] możliwośc zapauzowania i wznowienia gry
  [X] możliwość wyboru wielkości ekranu
  [X] spowolnienie i zmiana prędkości wraz ze wzrostem punktów
  [X] wyświetlanie punktów w czasie rzeczywistym
