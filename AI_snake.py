@@ -2,6 +2,7 @@ import pygame
 import random
 import menu
 import os
+import sys
 
 def ai_play_game(size):
 
@@ -146,6 +147,7 @@ def ai_play_game(size):
 
         menu.end_game('ai',length_of_snake - 1, 0,size)
         pygame.quit()
+        sys.exit()
 
     gameLoop()
 

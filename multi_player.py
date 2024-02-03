@@ -2,6 +2,7 @@ import pygame
 import random
 import menu
 import os
+import sys
 
 def mp_play_game(size):
 
@@ -265,5 +266,6 @@ def mp_play_game(size):
 
         menu.end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1, size)
         pygame.quit()
+        sys.exit()
 
     gameLoop()

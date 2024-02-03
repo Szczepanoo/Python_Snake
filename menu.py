@@ -1,5 +1,6 @@
 import os
 import pygame
+import sys
 import single_player as SP
 import multi_player as MP
 import AI_snake as AI
@@ -49,19 +50,21 @@ def show_main_menu(size):
                         AI.ai_play_game(size)
                     elif height // 2 + 3 * button_y_offset <= y <= height // 2 + 3 * button_y_offset + button_height:
                         pygame.quit()
-                        quit()
+                        sys.exit()
 
         screen.fill(black)
 
-        title_font = pygame.font.Font(None, scale_factor(300))
-        title_text = title_font.render("SNAKE", True, green)
+        title_text = pygame.font.Font(None, scale_factor(300)).render("SNAKE", True, green)
         title_rect = title_text.get_rect(center=(width // 2, scale_factor(100)))
         screen.blit(title_text, title_rect)
 
-        subtitle_font = pygame.font.Font(None, scale_factor(25))
-        subtitle_text = subtitle_font.render("by Jacob Digital Entertainment", True, green)
+        subtitle_text = pygame.font.Font(None, scale_factor(25)).render("by Jacob Digital Entertainment", True, green)
         subtitle_rect = subtitle_text.get_rect(center=(width // 2, scale_factor(190)))
         screen.blit(subtitle_text, subtitle_rect)
+
+        version_text = pygame.font.Font(None, scale_factor(15)).render("1.0.0",True,green)
+        version_rect = version_text.get_rect(bottomright=(width - scale_factor(10), height - scale_factor(10)))
+        screen.blit(version_text, version_rect)
 
 
         button_height = scale_factor(50)
@@ -134,7 +137,7 @@ def end_game(mode : str, green_points, blue_points,size):
                         show_main_menu(size)
                     elif height // 2 + button_y_offset <= y <= height // 2 + button_y_offset + button_height:
                         pygame.quit()
-                        quit()
+                        sys.exit()
 
         screen.fill(black)
 

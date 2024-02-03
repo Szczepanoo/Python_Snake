@@ -2,6 +2,7 @@ import pygame
 import random
 import menu
 import os
+import sys
 
 def sp_play_game(size):
 
@@ -153,5 +154,6 @@ def sp_play_game(size):
 
         menu.end_game('single', length_of_snake - 1, 0,size)
         pygame.quit()
+        sys.exit()
 
     gameLoop()
