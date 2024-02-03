@@ -4,9 +4,11 @@ import menu
 
 
 def display_menu(screen, font, options):
-    screen.fill((0, 0, 0))
 
+    black = (0, 0, 0)
     green = (0, 255, 0)
+
+    screen.fill(black)
 
     title_text = font.render("Choose resolution:", True, green)
     screen.blit(title_text, (200, 100))
@@ -17,7 +19,7 @@ def display_menu(screen, font, options):
     spacing = 10
 
     for i, option in enumerate(options):
-        option_text = font.render(option, True, (0, 0, 0))
+        option_text = font.render(option, True, black)
         rect = pygame.Rect(200, 200 + i * (button_height + spacing), 200, button_height)
         pygame.draw.rect(screen, green, rect)
         screen.blit(option_text, rect.move(10, 10).topleft)
@@ -77,6 +79,8 @@ pygame.display.set_caption('SNAKE')
  [] dodanie ramki do tekstu z punktami oraz tekstu 'game paused'
  [] dodanie możliwości zalogowania
  [] dodanie wyboru customowej rozdzielczości
+ [] dodanie boostów
+ [] przechodzenie na drugą stronę ekranu
 [ZREALIZOWANO]
  [X] możliwośc zapauzowania i wznowienia gry
  [X] możliwość wyboru wielkości ekranu

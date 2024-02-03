@@ -59,6 +59,12 @@ def show_main_menu(size):
         title_rect = title_text.get_rect(center=(width // 2, scale_factor(100)))
         screen.blit(title_text, title_rect)
 
+        subtitle_font = pygame.font.Font(None, scale_factor(25))
+        subtitle_text = subtitle_font.render("by Jacob Digital Entertainment", True, green)
+        subtitle_rect = subtitle_text.get_rect(center=(width // 2, scale_factor(190)))
+        screen.blit(subtitle_text, subtitle_rect)
+
+
         button_height = scale_factor(50)
         button_y_offset = scale_factor(70)
 
