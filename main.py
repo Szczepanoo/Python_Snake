@@ -37,7 +37,10 @@ def get_screen_size(option):
     elif option == "1280x720":
         return (1280, 720)
     elif option == "Fullscreen":
-        return pygame.display.list_modes()[0]
+        info = pygame.display.Info()
+        fullscreen_width = info.current_w
+        fullscreen_height = info.current_h
+        return (fullscreen_width,fullscreen_height)
 
 pygame.init()
 
