@@ -1,6 +1,5 @@
 import os
 import pygame
-import sys
 import single_player as SP
 import multi_player as MP
 import AI_snake as AI
@@ -12,7 +11,7 @@ def show_main_menu(size):
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("SNAKE")
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
@@ -43,14 +42,14 @@ def show_main_menu(size):
 
                 if width // 2 - scale_factor(100) <= x <= width // 2 + scale_factor(100):
                     if height // 2 - button_y_offset <= y <= height // 2 - button_y_offset + button_height:
-                        SP.play_game(size)
+                        SP.sp_play_game(size)
                     elif height // 2 <= y <= height // 2 + button_height:
-                        MP.play_game(size)
+                        MP.mp_play_game(size)
                     elif height // 2 + button_y_offset <= y <= height // 2 + button_y_offset + button_height:
-                        AI.play_game(size)
+                        AI.ai_play_game(size)
                     elif height // 2 + 3 * button_y_offset <= y <= height // 2 + 3 * button_y_offset + button_height:
                         pygame.quit()
-                        sys.exit()
+                        quit()
 
         screen.fill(black)
 
@@ -86,7 +85,6 @@ def show_main_menu(size):
         pygame.display.flip()
 
     pygame.quit()
-    sys.exit()
 
 def end_game(mode : str, green_points, blue_points,size):
     pygame.init()
@@ -95,7 +93,7 @@ def end_game(mode : str, green_points, blue_points,size):
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("SNAKE")
 
-    game_over_sound = pygame.mixer.Sound(os.getcwd() + '\\game_over.mp3')
+    game_over_sound = pygame.mixer.Sound(os.getcwd() + '\\sounds\\game_over.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(game_over_sound)
 
@@ -127,16 +125,16 @@ def end_game(mode : str, green_points, blue_points,size):
                 if width // 2 - scale_factor(100) <= x <= width // 2 + scale_factor(100):
                     if height // 2 - button_y_offset <= y <= height // 2 - button_y_offset + button_height:
                         if mode == "single":
-                            SP.play_game(size)
+                            SP.sp_play_game(size)
                         elif mode == "multi":
-                            MP.play_game(size)
+                            MP.mp_play_game(size)
                         elif mode == 'ai':
-                            AI.play_game(size)
+                            AI.ai_play_game(size)
                     elif height // 2 <= y <= height // 2 + button_height:
                         show_main_menu(size)
                     elif height // 2 + button_y_offset <= y <= height // 2 + button_y_offset + button_height:
                         pygame.quit()
-                        sys.exit()
+                        quit()
 
         screen.fill(black)
 
@@ -165,4 +163,3 @@ def end_game(mode : str, green_points, blue_points,size):
 
     # Zakończenie programu
     pygame.quit()
-    sys.exit()

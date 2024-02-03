@@ -1,10 +1,9 @@
 import pygame
 import random
-import os
 import menu
+import os
 
-
-def play_game(size):
+def ai_play_game(size):
 
     pygame.init()
 
@@ -19,11 +18,11 @@ def play_game(size):
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('Snake-AI')
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
-    get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
+    get_point = pygame.mixer.Sound(os.getcwd() + '\\sounds\\get_point.mp3')
     channel1 = pygame.mixer.Channel(1)
 
     clock = pygame.time.Clock()
@@ -147,7 +146,6 @@ def play_game(size):
 
         menu.end_game('ai',length_of_snake - 1, 0,size)
         pygame.quit()
-        quit()
 
     gameLoop()
 

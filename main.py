@@ -1,7 +1,5 @@
 import pygame
-import sys
 import menu
-
 
 def display_menu(screen, font, options):
 
@@ -58,11 +56,9 @@ while not screen_size_option:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
-                sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             for i, rect in enumerate(option_rects):
@@ -93,4 +89,7 @@ pygame.display.set_caption('SNAKE')
  [X] ekran końcowy z ilością punktów
  [X] możliwośc gry drugiego gracza po śmierci pierwszego
  [X] możliwośc zagrania ponownie po skończeniu gry
+ 
+ pyinstaller --hidden-import=pygame --noconsole Snake.py
+ 
 '''

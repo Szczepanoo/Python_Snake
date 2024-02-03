@@ -1,10 +1,9 @@
 import pygame
-import sys
-import menu
-import os
 import random
+import os
 
-def AI_play_game(size):
+
+def ai_play_game(size):
 
     pygame.init()
 
@@ -19,11 +18,11 @@ def AI_play_game(size):
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('Snake-AI')
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
-    get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
+    get_point = pygame.mixer.Sound(os.getcwd() + '\\sounds\\get_point.mp3')
     channel1 = pygame.mixer.Channel(1)
 
     clock = pygame.time.Clock()
@@ -145,13 +144,12 @@ def AI_play_game(size):
             clock.tick(fps)
             pygame.display.update()
 
-        menu.end_game('ai',length_of_snake - 1, 0,size)
+        end_game('ai',length_of_snake - 1, 0,size)
         pygame.quit()
-        quit()
 
     gameLoop()
 
-def MP_play_game(size):
+def mp_play_game(size):
 
     pygame.init()
 
@@ -167,11 +165,11 @@ def MP_play_game(size):
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('MultiPlayer Snake Game')
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
-    get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
+    get_point = pygame.mixer.Sound(os.getcwd() + '\\sounds\\get_point.mp3')
     channel1 = pygame.mixer.Channel(1)
 
     clock = pygame.time.Clock()
@@ -249,7 +247,7 @@ def MP_play_game(size):
         length_of_blue_snake = 1
 
         food_x1, food_y1 = generate_food_position(green_snake_list, blue_snake_list)
-        food_x2, food_y2 = generate_food_position(green_snake_list, blue_snake_list,food_x1,food_y1)
+        food_x2, food_y2 = generate_food_position(green_snake_list, blue_snake_list, food_x1, food_y1)
 
         while not game_over:
             for event in pygame.event.get():
@@ -260,53 +258,61 @@ def MP_play_game(size):
                         game_paused, last_direction_green, last_direction_blue = pause_game((x_green_change, y_green_change),(x_blue_change,y_blue_change))
 
                     if not game_paused:
-                        # Pierwszy ruch zielonego
-                        if event.key == pygame.K_UP and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = 0, -block_size
-                            green_first_move = False
-                        elif event.key == pygame.K_DOWN and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = 0, block_size
-                            green_first_move = False
-                        elif event.key == pygame.K_LEFT and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = -block_size, 0
-                            green_first_move = False
-                        elif event.key == pygame.K_RIGHT and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = block_size, 0
-                            green_first_move = False
+                        if not game_over_green:
+                            if green_first_move:
+                                # Pierwszy ruch zielonego
+                                if event.key == pygame.K_UP:
+                                    x_green_change, y_green_change = 0, -block_size
+                                    green_first_move = False
+                                elif event.key == pygame.K_DOWN:
+                                    x_green_change, y_green_change = 0, block_size
+                                    green_first_move = False
+                                elif event.key == pygame.K_LEFT:
+                                    x_green_change, y_green_change = -block_size, 0
+                                    green_first_move = False
+                                elif event.key == pygame.K_RIGHT:
+                                    x_green_change, y_green_change = block_size, 0
+                                    green_first_move = False
+                            else:
+                                # Nie pierwszy ruch zielonego
+                                if event.key == pygame.K_UP and not green_first_move and (
+                                        x_green_change != 0 and y_green_change != -block_size):
+                                    x_green_change, y_green_change = 0, -block_size
+                                elif event.key == pygame.K_DOWN and not green_first_move and (
+                                        x_green_change != 0 and y_green_change != block_size):
+                                    x_green_change, y_green_change = 0, block_size
+                                elif event.key == pygame.K_LEFT and not green_first_move and (
+                                        x_green_change != -block_size and y_green_change != 0):
+                                    x_green_change, y_green_change = -block_size, 0
+                                elif event.key == pygame.K_RIGHT and not green_first_move and (
+                                        x_green_change != -block_size and y_green_change != 0):
+                                    x_green_change, y_green_change = block_size, 0
 
-                        # Pierwszy ruch niebieskiego
-                        elif event.key == pygame.K_w and blue_first_move and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, -block_size
-                            blue_first_move = False
-                        elif event.key == pygame.K_s and blue_first_move and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, block_size
-                            blue_first_move = False
-                        elif event.key == pygame.K_a and blue_first_move and not game_over_blue:
-                            x_blue_change, y_blue_change = -block_size, 0
-                            blue_first_move = False
-                        elif event.key == pygame.K_d and blue_first_move and not game_over_blue:
-                            blue_first_move = False
-                            x_blue_change, y_blue_change = block_size, 0
-
-                        # Nie pierwszy ruch zielonego
-                        if event.key == pygame.K_UP and not green_first_move and (x_green_change != 0 and y_green_change != -block_size) and not game_over_green:
-                            x_green_change, y_green_change = 0, -block_size
-                        elif event.key == pygame.K_DOWN and not green_first_move and (x_green_change != 0 and y_green_change != block_size) and not game_over_green:
-                            x_green_change, y_green_change = 0, block_size
-                        elif event.key == pygame.K_LEFT and not green_first_move and (x_green_change != -block_size and y_green_change != 0) and not game_over_green:
-                            x_green_change, y_green_change = -block_size, 0
-                        elif event.key == pygame.K_RIGHT and not green_first_move and (x_green_change != -block_size and y_green_change != 0) and not game_over_green:
-                            x_green_change, y_green_change = block_size, 0
-
-                        # Nie pierwszy ruch niebieskiego
-                        if event.key == pygame.K_w and not blue_first_move and (x_blue_change != 0 and y_blue_change != -block_size) and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, -block_size
-                        elif event.key == pygame.K_s and not blue_first_move and (x_blue_change != 0 and y_blue_change != block_size) and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, block_size
-                        elif event.key == pygame.K_a and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0) and not game_over_blue:
-                            x_blue_change, y_blue_change = -block_size, 0
-                        elif event.key == pygame.K_d and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0) and not game_over_blue:
-                            x_blue_change, y_blue_change = block_size, 0
+                        if not game_over_blue:
+                            if blue_first_move:
+                                # Pierwszy ruch niebieskiego
+                                if event.key == pygame.K_w:
+                                    x_blue_change, y_blue_change = 0, -block_size
+                                    blue_first_move = False
+                                elif event.key == pygame.K_s:
+                                    x_blue_change, y_blue_change = 0, block_size
+                                    blue_first_move = False
+                                elif event.key == pygame.K_a:
+                                    x_blue_change, y_blue_change = -block_size, 0
+                                    blue_first_move = False
+                                elif event.key == pygame.K_d:
+                                    blue_first_move = False
+                                    x_blue_change, y_blue_change = block_size, 0
+                            else:
+                                # Nie pierwszy ruch niebieskiego
+                                if event.key == pygame.K_w and not blue_first_move and (x_blue_change != 0 and y_blue_change != -block_size):
+                                    x_blue_change, y_blue_change = 0, -block_size
+                                elif event.key == pygame.K_s and not blue_first_move and (x_blue_change != 0 and y_blue_change != block_size):
+                                    x_blue_change, y_blue_change = 0, block_size
+                                elif event.key == pygame.K_a and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0):
+                                    x_blue_change, y_blue_change = -block_size, 0
+                                elif event.key == pygame.K_d and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0):
+                                    x_blue_change, y_blue_change = block_size, 0
 
             if not game_paused:
                 x_green += x_green_change
@@ -398,18 +404,17 @@ def MP_play_game(size):
                 channel1.play(get_point)
 
             if game_over_green and game_over_blue:
-                menu.end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1,size)
+                game_over = True
 
             clock.tick(fps)
             pygame.display.update()
 
-        menu.show_main_menu(size)
+        end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1, size)
         pygame.quit()
-        quit()
 
     gameLoop()
 
-def SP_play_game(size):
+def sp_play_game(size):
 
     pygame.init()
 
@@ -424,11 +429,11 @@ def SP_play_game(size):
     pygame.display.set_caption('SinglePlayer Snake Game')
 
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
-    get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
+    get_point = pygame.mixer.Sound(os.getcwd() + '\\sounds\\get_point.mp3')
     channel1 = pygame.mixer.Channel(1)
 
     clock = pygame.time.Clock()
@@ -557,12 +562,11 @@ def SP_play_game(size):
             clock.tick(fps)
             pygame.display.update()
 
-        menu.end_game('single', length_of_snake - 1, 0,size)
+        end_game('single', length_of_snake - 1, 0,size)
         pygame.quit()
         quit()
 
     gameLoop()
-
 
 def show_main_menu(size):
     pygame.init()
@@ -571,7 +575,7 @@ def show_main_menu(size):
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("SNAKE")
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
@@ -602,14 +606,14 @@ def show_main_menu(size):
 
                 if width // 2 - scale_factor(100) <= x <= width // 2 + scale_factor(100):
                     if height // 2 - button_y_offset <= y <= height // 2 - button_y_offset + button_height:
-                        SP_play_game(size)
+                        sp_play_game(size)
                     elif height // 2 <= y <= height // 2 + button_height:
-                        MP_play_game(size)
+                        mp_play_game(size)
                     elif height // 2 + button_y_offset <= y <= height // 2 + button_y_offset + button_height:
-                        AI_play_game(size)
+                        ai_play_game(size)
                     elif height // 2 + 3 * button_y_offset <= y <= height // 2 + 3 * button_y_offset + button_height:
                         pygame.quit()
-                        sys.exit()
+                        quit()
 
         screen.fill(black)
 
@@ -617,6 +621,12 @@ def show_main_menu(size):
         title_text = title_font.render("SNAKE", True, green)
         title_rect = title_text.get_rect(center=(width // 2, scale_factor(100)))
         screen.blit(title_text, title_rect)
+
+        subtitle_font = pygame.font.Font(None, scale_factor(25))
+        subtitle_text = subtitle_font.render("by Jacob Digital Entertainment", True, green)
+        subtitle_rect = subtitle_text.get_rect(center=(width // 2, scale_factor(190)))
+        screen.blit(subtitle_text, subtitle_rect)
+
 
         button_height = scale_factor(50)
         button_y_offset = scale_factor(70)
@@ -639,7 +649,6 @@ def show_main_menu(size):
         pygame.display.flip()
 
     pygame.quit()
-    sys.exit()
 
 def end_game(mode : str, green_points, blue_points,size):
     pygame.init()
@@ -648,7 +657,7 @@ def end_game(mode : str, green_points, blue_points,size):
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("SNAKE")
 
-    game_over_sound = pygame.mixer.Sound(os.getcwd() + '\\game_over.mp3')
+    game_over_sound = pygame.mixer.Sound(os.getcwd() + '\\sounds\\game_over.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(game_over_sound)
 
@@ -680,16 +689,16 @@ def end_game(mode : str, green_points, blue_points,size):
                 if width // 2 - scale_factor(100) <= x <= width // 2 + scale_factor(100):
                     if height // 2 - button_y_offset <= y <= height // 2 - button_y_offset + button_height:
                         if mode == "single":
-                            SP_play_game(size)
+                            sp_play_game(size)
                         elif mode == "multi":
-                            MP_play_game(size)
+                            mp_play_game(size)
                         elif mode == 'ai':
-                            AI_play_game(size)
+                            ai_play_game(size)
                     elif height // 2 <= y <= height // 2 + button_height:
                         show_main_menu(size)
                     elif height // 2 + button_y_offset <= y <= height // 2 + button_y_offset + button_height:
                         pygame.quit()
-                        sys.exit()
+                        quit()
 
         screen.fill(black)
 
@@ -711,19 +720,20 @@ def end_game(mode : str, green_points, blue_points,size):
         if mode == 'multi':
             draw_text(f"BLUE SNAKE POINTS: {blue_points}", scale_factor(250), scale_factor(200), blue)
             draw_text(f"GREEN SNAKE POINTS: {green_points}", width - scale_factor(250), scale_factor(200), green)
-        elif mode == 'single'or mode == 'ai':
+        elif mode == 'single' or mode == 'ai':
             draw_text(f"POINTS: {green_points}", width // 2, scale_factor(200), green)
 
         pygame.display.flip()
 
     # Zakończenie programu
     pygame.quit()
-    sys.exit()
 
 def display_menu(screen, font, options):
-    screen.fill((0, 0, 0))
 
+    black = (0, 0, 0)
     green = (0, 255, 0)
+
+    screen.fill(black)
 
     title_text = font.render("Choose resolution:", True, green)
     screen.blit(title_text, (200, 100))
@@ -734,7 +744,7 @@ def display_menu(screen, font, options):
     spacing = 10
 
     for i, option in enumerate(options):
-        option_text = font.render(option, True, (0, 0, 0))
+        option_text = font.render(option, True, black)
         rect = pygame.Rect(200, 200 + i * (button_height + spacing), 200, button_height)
         pygame.draw.rect(screen, green, rect)
         screen.blit(option_text, rect.move(10, 10).topleft)
@@ -752,7 +762,10 @@ def get_screen_size(option):
     elif option == "1280x720":
         return (1280, 720)
     elif option == "Fullscreen":
-        return pygame.display.list_modes()[0]
+        info = pygame.display.Info()
+        fullscreen_width = ((info.current_w + 19) // 20) * 20
+        fullscreen_height = ((info.current_h + 19) // 20) * 20
+        return (fullscreen_width,fullscreen_height)
 
 pygame.init()
 
@@ -770,11 +783,9 @@ while not screen_size_option:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
-                sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             for i, rect in enumerate(option_rects):
@@ -784,5 +795,5 @@ while not screen_size_option:
 pygame.quit()
 
 size = get_screen_size(screen_size_option)
-menu.show_main_menu(size)
+show_main_menu(size)
 pygame.display.set_caption('SNAKE')

@@ -3,7 +3,7 @@ import random
 import menu
 import os
 
-def play_game(size):
+def mp_play_game(size):
 
     pygame.init()
 
@@ -19,11 +19,11 @@ def play_game(size):
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('MultiPlayer Snake Game')
 
-    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sound_track.mp3')
+    main_theme = pygame.mixer.Sound(os.getcwd() + '\\sounds\\sound_track.mp3')
     channel0 = pygame.mixer.Channel(0)
     channel0.play(main_theme, loops=-1)
 
-    get_point = pygame.mixer.Sound(os.getcwd() + '\\get_point.mp3')
+    get_point = pygame.mixer.Sound(os.getcwd() + '\\sounds\\get_point.mp3')
     channel1 = pygame.mixer.Channel(1)
 
     clock = pygame.time.Clock()
@@ -258,13 +258,12 @@ def play_game(size):
                 channel1.play(get_point)
 
             if game_over_green and game_over_blue:
-                menu.end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1,size)
+                game_over = True
 
             clock.tick(fps)
             pygame.display.update()
 
-        menu.show_main_menu(size)
+        menu.end_game('multi', length_of_green_snake - 1, length_of_blue_snake - 1, size)
         pygame.quit()
-        quit()
 
     gameLoop()
