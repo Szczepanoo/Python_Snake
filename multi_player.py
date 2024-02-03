@@ -112,57 +112,61 @@ def play_game(size):
                         game_paused, last_direction_green, last_direction_blue = pause_game((x_green_change, y_green_change),(x_blue_change,y_blue_change))
 
                     if not game_paused:
-                        # Pierwszy ruch zielonego
-                        if event.key == pygame.K_UP and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = 0, -block_size
-                            green_first_move = False
-                        elif event.key == pygame.K_DOWN and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = 0, block_size
-                            green_first_move = False
-                        elif event.key == pygame.K_LEFT and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = -block_size, 0
-                            green_first_move = False
-                        elif event.key == pygame.K_RIGHT and green_first_move and not game_over_green:
-                            x_green_change, y_green_change = block_size, 0
-                            green_first_move = False
+                        if not game_over_green:
+                            if green_first_move:
+                                # Pierwszy ruch zielonego
+                                if event.key == pygame.K_UP:
+                                    x_green_change, y_green_change = 0, -block_size
+                                    green_first_move = False
+                                elif event.key == pygame.K_DOWN:
+                                    x_green_change, y_green_change = 0, block_size
+                                    green_first_move = False
+                                elif event.key == pygame.K_LEFT:
+                                    x_green_change, y_green_change = -block_size, 0
+                                    green_first_move = False
+                                elif event.key == pygame.K_RIGHT:
+                                    x_green_change, y_green_change = block_size, 0
+                                    green_first_move = False
+                            else:
+                                # Nie pierwszy ruch zielonego
+                                if event.key == pygame.K_UP and not green_first_move and (
+                                        x_green_change != 0 and y_green_change != -block_size):
+                                    x_green_change, y_green_change = 0, -block_size
+                                elif event.key == pygame.K_DOWN and not green_first_move and (
+                                        x_green_change != 0 and y_green_change != block_size):
+                                    x_green_change, y_green_change = 0, block_size
+                                elif event.key == pygame.K_LEFT and not green_first_move and (
+                                        x_green_change != -block_size and y_green_change != 0):
+                                    x_green_change, y_green_change = -block_size, 0
+                                elif event.key == pygame.K_RIGHT and not green_first_move and (
+                                        x_green_change != -block_size and y_green_change != 0):
+                                    x_green_change, y_green_change = block_size, 0
 
-                        # Nie pierwszy ruch zielonego
-                        if event.key == pygame.K_UP and not green_first_move and (
-                                x_green_change != 0 and y_green_change != -block_size) and not game_over_green:
-                            x_green_change, y_green_change = 0, -block_size
-                        elif event.key == pygame.K_DOWN and not green_first_move and (
-                                x_green_change != 0 and y_green_change != block_size) and not game_over_green:
-                            x_green_change, y_green_change = 0, block_size
-                        elif event.key == pygame.K_LEFT and not green_first_move and (
-                                x_green_change != -block_size and y_green_change != 0) and not game_over_green:
-                            x_green_change, y_green_change = -block_size, 0
-                        elif event.key == pygame.K_RIGHT and not green_first_move and (
-                                x_green_change != -block_size and y_green_change != 0) and not game_over_green:
-                            x_green_change, y_green_change = block_size, 0
-
-                        # Pierwszy ruch niebieskiego
-                        elif event.key == pygame.K_w and blue_first_move and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, -block_size
-                            blue_first_move = False
-                        elif event.key == pygame.K_s and blue_first_move and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, block_size
-                            blue_first_move = False
-                        elif event.key == pygame.K_a and blue_first_move and not game_over_blue:
-                            x_blue_change, y_blue_change = -block_size, 0
-                            blue_first_move = False
-                        elif event.key == pygame.K_d and blue_first_move and not game_over_blue:
-                            blue_first_move = False
-                            x_blue_change, y_blue_change = block_size, 0
-
-                        # Nie pierwszy ruch niebieskiego
-                        if event.key == pygame.K_w and not blue_first_move and (x_blue_change != 0 and y_blue_change != -block_size) and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, -block_size
-                        elif event.key == pygame.K_s and not blue_first_move and (x_blue_change != 0 and y_blue_change != block_size) and not game_over_blue:
-                            x_blue_change, y_blue_change = 0, block_size
-                        elif event.key == pygame.K_a and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0) and not game_over_blue:
-                            x_blue_change, y_blue_change = -block_size, 0
-                        elif event.key == pygame.K_d and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0) and not game_over_blue:
-                            x_blue_change, y_blue_change = block_size, 0
+                        if not game_over_blue:
+                            if blue_first_move:
+                                # Pierwszy ruch niebieskiego
+                                if event.key == pygame.K_w:
+                                    x_blue_change, y_blue_change = 0, -block_size
+                                    blue_first_move = False
+                                elif event.key == pygame.K_s:
+                                    x_blue_change, y_blue_change = 0, block_size
+                                    blue_first_move = False
+                                elif event.key == pygame.K_a:
+                                    x_blue_change, y_blue_change = -block_size, 0
+                                    blue_first_move = False
+                                elif event.key == pygame.K_d:
+                                    blue_first_move = False
+                                    x_blue_change, y_blue_change = block_size, 0
+                            else:
+                                # Nie pierwszy ruch niebieskiego
+                                if event.key == pygame.K_w and not blue_first_move and (x_blue_change != 0 and y_blue_change != -block_size):
+                                    x_blue_change, y_blue_change = 0, -block_size
+                                elif event.key == pygame.K_s and not blue_first_move and (x_blue_change != 0 and y_blue_change != block_size):
+                                    x_blue_change, y_blue_change = 0, block_size
+                                elif event.key == pygame.K_a and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0):
+                                    x_blue_change, y_blue_change = -block_size, 0
+                                elif event.key == pygame.K_d and not blue_first_move and (x_blue_change != -block_size and y_blue_change != 0):
+                                    x_blue_change, y_blue_change = block_size, 0
 
             if not game_paused:
                 x_green += x_green_change
