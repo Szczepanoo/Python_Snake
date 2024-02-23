@@ -1,5 +1,5 @@
 # The Snake Game
-A well-known and popular game implemented using `Python` and the `Pygame` library. 
+A well-known and popular game extended by `Multiplayer` mode and `heuristic-based AI algorithm` implemented using `Python` and the `Pygame` library. 
 
 # Main menu
 After starting, the user can choose the screen size. Then a menu with three game modes and the exit button appears.
@@ -25,4 +25,11 @@ Multiplayer allows you to play the same great game but this time with a friend! 
 
 <img width="748" alt="image" src="https://github.com/Szczepanoo/Snake/assets/125917209/4598260c-e79a-426c-96a8-8e98025829af">
 
+# AI
+
+The AI ​​algorithm uses heuristics to determine the optimal directions for the snake to move to reach food. He tries to minimize the number of moves needed to achieve the goal. It has some problems when the apple appears in an unusual place (e.g. directly behind the snake) or the snake grows to a longer size and starts getting in its way.
+
+# Other Functionalities
+### Press <kbd>ESC</kbd> during the game to pause it, or unpause if paused.
+### Music: [Roku Snake OST - Main Theme](https://www.youtube.com/watch?v=NII5ptvm5zM)
 
